@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppartementController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AppartementController::class, 'showAll'])->name('accueil');
+
+
+Route::get('/signup', [UserController::class, 'signUp'])->name("signUp");
+Route::post('/signup', [UserController::class, 'doSignUp']);
+Route::get('/login', [UserController::class, 'login'])->name("login");
+Route::post('/login', [UserController::class, 'doLogin']);
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
