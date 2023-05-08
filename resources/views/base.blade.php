@@ -21,17 +21,25 @@
                 <a class="nav-link active" aria-current="page" href="#">Mes biens</a>
               </li>
               @if (Auth::user()->isAdmin)
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Administration</a>
-                </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Administration
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{{ Route('dashboard.appart') }}">Les biens</a></li>
+                  <li><a class="dropdown-item" href="{{ Route('dashboard.option') }}">Les options</a></li>
+                </ul>
+              </li>
               @endif
             </ul>
-                Bonjour {{ Auth::user()->prenom }}
-                <form action="{{ route('logout') }}" method="post">
-                  @csrf
+            <span class="me-2">
+              Bonjour <strong>{{ Auth::user()->prenom }}</strong>
+            </span>
+            <form action="{{ route('logout') }}" method="post" class="d-flex">
+              @csrf
 
-                  <button name="logout" class="btn btn-danger">Se déconnecter</button>
-                </form>
+              <button name="logout" class="btn btn-danger">Se déconnecter</button>
+            </form>
             @endauth
             @guest
                 </ul>

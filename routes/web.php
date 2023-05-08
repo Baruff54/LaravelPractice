@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\AppartementController;
-use App\Http\Controllers\UserController;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AppartementController;
+use App\Http\Controllers\Dashboard\BienController;
+use App\Http\Controllers\Dashboard\OptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +35,12 @@ Route::prefix('/appart')->name('appart.')->group(function () {
         Route::post('/create', [AppartementController::class, 'store']);
     });
     Route::get('/{appart}', [AppartementController::class, 'show'])->name('show');
+});
+
+Route::prefix('/dashboard')->name('dashboard.')->middleware([IsAdmin::class])->group(function () {
+    Route::get('/option', [OptionController::class, 'show'])->name('option');
+    Route::post('/option', [OptionController::class, 'store']);
+    Route::delete('/option', [OptionController::class, 'delete']);
+    Route::get('/appart', [BienController::class, 'show'])->name('appart');
+    Route::delete('/appart', [BienController::class, 'delete']);
 });
