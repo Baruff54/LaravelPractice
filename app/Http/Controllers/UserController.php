@@ -42,7 +42,7 @@ class UserController extends Controller
 
         $user->save();
 
-        dd($user);
+        return redirect()->route('login');
     }
 
     public function logOut() {

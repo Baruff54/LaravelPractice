@@ -13,6 +13,6 @@ class Option extends Model {
     ];
 
     public function appartement() {
-        return $this->belongsToMany(Appartement::class, 'appartement_options');
+        return $this->belongsToMany(Appartement::class, 'appartement_options', 'options', 'appartement');
     }
 }

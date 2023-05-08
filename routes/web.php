@@ -23,3 +23,12 @@ Route::post('/signup', [UserController::class, 'doSignUp']);
 Route::get('/login', [UserController::class, 'login'])->name("login");
 Route::post('/login', [UserController::class, 'doLogin']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+Route::prefix('/appart')->name('appart.')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/create', [AppartementController::class, 'create'])->name('create');
+        Route::post('/create', [AppartementController::class, 'store']);
+    });
+    Route::get('/{appart}', [AppartementController::class, 'show'])->name('show');
+});

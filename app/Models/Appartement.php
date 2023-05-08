@@ -26,14 +26,14 @@ class Appartement extends Model {
     }
 
     public function images() {
-        return $this->hasMany(Image::class, 'id', 'idAppartement');
+        return $this->hasMany(Image::class, 'idAppartement');
     }
 
     public function messages() {
-        return $this->hasMany(Message::class, 'id', 'idAppartement');
+        return $this->hasMany(Message::class, 'idAppartement');
     }
 
     public function options() {
-        return $this->belongsToMany(Option::class, 'appartement_options');
+        return $this->belongsToMany(Option::class, 'appartement_options', 'appartement', 'options');
     }
 }
