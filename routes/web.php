@@ -34,6 +34,9 @@ Route::prefix('/appart')->name('appart.')->group(function () {
         Route::get('/create', [AppartementController::class, 'create'])->name('create');
         Route::post('/create', [AppartementController::class, 'store']);
     });
+
+    Route::get('/my', [AppartementController::class, 'showMy'])->name('myappart');
+    Route::delete('/my', [AppartementController::class, 'delete']);
     Route::get('/{appart}', [AppartementController::class, 'show'])->name('show');
 });
 

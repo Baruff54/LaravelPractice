@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Image;
 use App\Models\Option;
 use App\Models\Appartement;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\NewAppartRequest;
+use Illuminate\Http\Request;
 
 class AppartementController extends Controller
 {
@@ -18,6 +20,12 @@ class AppartementController extends Controller
 
     public function show(Appartement $appart) {
         return view('appartement.show', ['appart' => $appart]);
+    }
+
+    public function showMy() {
+        $appart = Auth::user()->appartement;
+
+        return view('appartement.showMy', ['apparts' => $appart]);
     }
 
     public function create() {
@@ -40,8 +48,9 @@ class AppartementController extends Controller
         $appart->adresse = $data['adresse'];
         $appart->ville = $data['ville'];
         $appart->cp = $data['cp'];
-        $appart->options()->sync($request->validated('options'));
         $appart->save();
+
+        $appart->options()->sync($request->validated('options'));
         
         $img = $request->validated('image');
         if($img !== null && !$img->getError()) {
@@ -53,5 +62,16 @@ class AppartementController extends Controller
         }
 
         return redirect()->route('appart.show', ['appart' => $appart->id]);
+    }
+
+    public function delete(Request $request) {
+        $appart = Appartement::find($request->input('id'));
+
+        if($appart->user->id === Auth::user()->id)
+            $appart->delete();
+        else
+            return back()->with('error', "Une erreur est survenue.");
+
+        return back()->with('success', 'Action effectué avec succès.');
     }
 }

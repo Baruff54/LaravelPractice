@@ -18,7 +18,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             @auth
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Mes biens</a>
+                <a class="nav-link active" aria-current="page" href="{{ Route('appart.myappart') }}">Mes biens</a>
               </li>
               @if (Auth::user()->isAdmin)
               <li class="nav-item dropdown">

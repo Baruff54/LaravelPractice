@@ -20,7 +20,7 @@
                 <button class="btn btn-success">Ajouter</button>
             </div>
         </div>
-    </form>
+    </form><br>
 
     <ol class="list-group">
         @foreach ($options as $opt)
