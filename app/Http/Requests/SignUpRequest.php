@@ -26,7 +26,7 @@ class SignUpRequest extends FormRequest
         return [
             'nom' => ['required', 'max:50', 'alpha:ascii'],
             'prenom' => ['required', 'max:50', 'alpha:ascii'],
-            'email' => ['required', 'max:100', 'email', Rule::unique(User::class, 'mail')],
+            'email' => ['required', 'max:100', 'email', Rule::unique(User::class, 'email')->ignore($this->User)],
             'telephone' => ['required', 'numeric', 'min:10'],
             'password' =>['required', 'min:8'],
             'password_confirmation' =>['required', 'min:8']

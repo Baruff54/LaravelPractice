@@ -22,7 +22,7 @@ class NewAppartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titre' => ['required', 'max:100', 'alpha:ascii'],
+            'titre' => ['required', 'max:100'],
             'surface' => ['required', 'numeric'],
             'prix' => ['required', 'numeric'],
             'description' => ['max:250', 'nullable'],

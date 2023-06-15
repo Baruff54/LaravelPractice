@@ -31,6 +31,10 @@ class UserController extends Controller
     }
 
     public function doSignUp(SignUpRequest $request) {
+        if($request->input('password') !== $request->input('password_confirmation')) {
+            return back()->with('error', "Mot de passe différent");
+        }
+
         $user = new User;
 
         $user->nom = $request->input('nom');
